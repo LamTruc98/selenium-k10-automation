@@ -8,51 +8,27 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
-public class FormInteraction    {
+public class FormInteractionMultipleMatching {
     public static void main(String[] args) {
         WebDriver driver = DriverFactory.getChromeDriver();
         try{
             //Navigate to the target page
             driver.get("https://the-internet.herokuapp.com/login");
             //Define selector values
-            By usernameSel = By.id("username");
-            By passwordSel = By.cssSelector("#password");
-            By loginBtnSel = By.cssSelector("button[type='submit']");
+            By inputFielsdSel = By.tagName("input");
+            WebElement usernameElem = driver.findElement(inputFielsdSel);
+            List<WebElement> inputFieldsElem = driver.findElements(inputFielsdSel);
+            if (inputFieldsElem.isEmpty()){
+                throw new RuntimeException("[ERR] There is no input fields");
 
-            //find elements
-            WebElement usernameElem = driver.findElement(usernameSel);
-            WebElement passwordElem = driver.findElement(passwordSel);
-            WebElement loginBtnElem = driver.findElement(loginBtnSel);
+            }
+            final int USERNAME_INDEX = 0;
+            final int PASSWORD_INDEX = 1;
 
-            //interact with elements
-            usernameElem.sendKeys("tomsmith");
-            passwordElem.sendKeys("SuperSecretPassword!");
-
-            //Refresh page then re-input
-            driver.navigate().refresh();
-             usernameElem = driver.findElement(usernameSel);
-             passwordElem = driver.findElement(passwordSel);
-             loginBtnElem = driver.findElement(loginBtnSel);
-            usernameElem.sendKeys("tomsmith");
-            passwordElem.sendKeys("SuperSecretPassword!");
-            loginBtnElem.click();
-
-            //User Dashboard page
-            By headingSel = By.cssSelector("h2_taolao");
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.visibilityOf(driver.findElement(headingSel)));
-
-            WebElement headingElem = driver.findElement(headingSel);
-            System.out.println("Heading Title: " + headingElem.getText());
-
-            //Find by link text, partial Link Text
-            System.out.println(driver.findElement(By.linkText("Elemental Selenium")).getText());
-            System.out.println(driver.findElement(By.partialLinkText("Elemental")).getText());
-            System.out.println(driver.findElement(By.linkText("Elemental Selenium")).getAttribute("href"));
-            System.out.println(driver.getCurrentUrl());
-            System.out.println(driver.getTitle());
-
+            inputFieldsElem.get(USERNAME_INDEX).sendKeys("teo");
+            inputFieldsElem.get(PASSWORD_INDEX).sendKeys("12345678");
             //Debug purpose ONLY
             Thread.sleep(3000);
         }catch (Exception e){
