@@ -10,7 +10,7 @@ public class LoginMod02Test implements Urls {
         WebDriver driver = DriverFactory.getChromeDriver();
         try {
             //navigate to the target page
-            driver.get(BASE_URL.concat(LOGIN_FORM_SLUG));
+            driver.get(HEROKU_BASE_URL.concat(LOGIN_FORM_SLUG));
 
             //input login creds
             LoginPageMod02 loginPage = new LoginPageMod02(driver);

@@ -1,11 +1,12 @@
 package tests;
 
 import driver.DriverFactory;
-import models.pages.LoginPageMod01;
+import models.components.LoginFormComponent;
+import models.pages.HerokuLoginPage;
 import org.openqa.selenium.WebDriver;
 import url.Urls;
 
-public class LoginMod01Test implements Urls {
+public class LoginPageTest implements Urls {
     public static void main(String[] args) {
         WebDriver driver = DriverFactory.getChromeDriver();
         try {
@@ -13,11 +14,11 @@ public class LoginMod01Test implements Urls {
             driver.get(HEROKU_BASE_URL.concat(LOGIN_FORM_SLUG));
 
             //input login creds
-            LoginPageMod01 loginPage = new LoginPageMod01(driver);
-            loginPage.usernameElem().sendKeys("Teo");
-            loginPage.passwordElem().sendKeys("12345678");
-            loginPage.loginBtnElem().click();
+            HerokuLoginPage loginPage = new HerokuLoginPage(driver);
+//            System.out.println(loginPage.footerComponent().getLinkText());
 
+            LoginFormComponent loginFormComponent = loginPage.loginFormComponent();
+            loginFormComponent.usernameElem().sendKeys("Teo");
             //Debug purpose Only
             Thread.sleep(2000);
 

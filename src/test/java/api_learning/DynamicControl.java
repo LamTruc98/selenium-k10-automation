@@ -4,7 +4,6 @@ import driver.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import support.ui.WaitForElementEnabled;
 import url.Urls;
@@ -19,7 +18,7 @@ public class DynamicControl {
         try {
 
             //Navigate to the target page
-            driver.get(Urls.BASE_URL.concat(Urls.DYNAMIC_CONTROL_SLUG));
+            driver.get(Urls.HEROKU_BASE_URL.concat(Urls.DYNAMIC_CONTROL_SLUG));
 
 
             //Define 2 forms locator

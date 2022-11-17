@@ -20,7 +20,7 @@ public class JsAlerts implements Urls {
     public static void main(String[] args) {
         WebDriver driver = DriverFactory.getChromeDriver();
         try {
-            driver.get(BASE_URL.concat(Urls.JS_ALERTS_SLUG));
+            driver.get(HEROKU_BASE_URL.concat(Urls.JS_ALERTS_SLUG));
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5L));
             boolean isAcceptedAlert = true;
             //JS Alert |OK

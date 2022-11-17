@@ -4,7 +4,6 @@ import driver.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import support.ui.SelectEx;
 import url.Urls;
 
@@ -13,7 +12,7 @@ public class DropDown {
         WebDriver driver = DriverFactory.getChromeDriver();
         try {
 
-            driver.get(Urls.BASE_URL.concat(Urls.DROPDOWN_SLUG));
+            driver.get(Urls.HEROKU_BASE_URL.concat(Urls.DROPDOWN_SLUG));
 
             WebElement dropdownElem = driver.findElement(By.cssSelector("#dropdown"));
             SelectEx select = new SelectEx(dropdownElem);
