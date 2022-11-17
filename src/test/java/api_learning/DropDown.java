@@ -1,4 +1,5 @@
 package api_learning;
+
 import driver.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,10 +7,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import support.ui.SelectEx;
 import url.Urls;
+
 public class DropDown {
     public static void main(String[] args) {
         WebDriver driver = DriverFactory.getChromeDriver();
-        try{
+        try {
 
             driver.get(Urls.BASE_URL.concat(Urls.DROPDOWN_SLUG));
 
@@ -32,9 +34,9 @@ public class DropDown {
             Thread.sleep(2000);
 
 
-
         } catch (Exception e) {
-            e.printStackTrace();        }
+            e.printStackTrace();
+        }
         driver.quit();
     }
 }

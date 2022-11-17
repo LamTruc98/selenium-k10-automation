@@ -1,4 +1,5 @@
 package api_learning;
+
 import driver.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +9,7 @@ import url.Urls;
 public class IFrame {
     public static void main(String[] args) {
         WebDriver driver = DriverFactory.getChromeDriver();
-        try{
+        try {
             //Navigate to the target page
             driver.get(Urls.BASE_URL.concat(Urls.IFRAME_SLUG));
 
@@ -31,7 +32,7 @@ public class IFrame {
 //Debug purpose only
             Thread.sleep(2000);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         driver.quit();

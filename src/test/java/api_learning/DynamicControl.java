@@ -11,8 +11,7 @@ import url.Urls;
 
 import java.time.Duration;
 
-public class DynamicControl
-{
+public class DynamicControl {
     public static void main(String[] args) {
 
 
@@ -31,7 +30,7 @@ public class DynamicControl
             WebElement checkboxFormElem = driver.findElement(checkboxFormSel);
             WebElement checkboxElem = checkboxFormElem.findElement(By.tagName("input"));
             //If the checkbox is not selected then select it
-            if (!checkboxElem.isSelected()){
+            if (!checkboxElem.isSelected()) {
                 checkboxElem.click();
             }
             //Debug purpose ONLY
@@ -44,9 +43,8 @@ public class DynamicControl
             WebElement inputFormBtnElem = inputFormElem.findElement(By.tagName("button "));
 
 
-
             //if the text field is not enabled then click on th button
-            if (!inputFieldElem.isEnabled()){
+            if (!inputFieldElem.isEnabled()) {
                 inputFormBtnElem.click();
                 //Wait until the text field is enable then send keys
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20L));

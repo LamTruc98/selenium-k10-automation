@@ -8,16 +8,15 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.Duration;
 
 public class DriverFactory {
-    public static WebDriver getChromeDriver(){
+    public static WebDriver getChromeDriver() {
         String currentProjectLocation = System.getProperty("user.dir");
         String chromeDriverLocation;
-        if (OS.isFamilyMac()){
+        if (OS.isFamilyMac()) {
             chromeDriverLocation = "src/test/resources/drivers/chromedriver";
 
         } else if (OS.isFamilyWindows()) {
             chromeDriverLocation = "\\src\\test\\resources\\drivers\\chromedriver";
-        }
-        else {
+        } else {
             throw new RuntimeException("[ERR] Couldn't delete the OS");
         }
         String chromeAbsoluteLocation = currentProjectLocation.concat(chromeDriverLocation);

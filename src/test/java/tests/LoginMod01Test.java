@@ -13,7 +13,7 @@ public class LoginMod01Test implements Urls {
             driver.get(BASE_URL.concat(LOGIN_FORM_SLUG));
 
             //input login creds
-            LoginPageMod01 loginPage= new LoginPageMod01(driver);
+            LoginPageMod01 loginPage = new LoginPageMod01(driver);
             loginPage.usernameElem().sendKeys("Teo");
             loginPage.passwordElem().sendKeys("12345678");
             loginPage.loginBtnElem().click();

@@ -1,6 +1,6 @@
 package models.components;
 
-public abstract class  LoginPage {
+public abstract class LoginPage {
     public void Login() {
         System.out.println(username());
 
@@ -14,8 +14,10 @@ public abstract class  LoginPage {
         System.out.println("Verify Dashboard display");
     }
 
-    protected abstract  String username();
-    protected abstract  String password();
-    protected abstract  String loginBtn();
+    protected abstract String username();
+
+    protected abstract String password();
+
+    protected abstract String loginBtn();
 
 }

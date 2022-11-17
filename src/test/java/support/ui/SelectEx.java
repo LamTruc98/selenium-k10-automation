@@ -11,7 +11,7 @@ public class SelectEx extends Select {
         super(dropdownElem);
     }
 
-    public void  selectOption01() {
+    public void selectOption01() {
         selectByVisibleText(OPTION_1);
     }
 }

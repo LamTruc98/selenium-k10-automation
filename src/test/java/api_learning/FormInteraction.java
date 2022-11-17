@@ -1,4 +1,5 @@
 package api_learning;
+
 import driver.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,11 +8,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
 public class FormInteraction {
     public static void main(String[] args) {
 
         WebDriver driver = DriverFactory.getChromeDriver();
-        try{
+        try {
             //Navigate to the target page
             driver.get("https://the-internet.herokuapp.com/login");
             //Define selector values
@@ -56,7 +58,7 @@ public class FormInteraction {
 
             //Debug purpose ONLY
             Thread.sleep(3000);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         driver.quit();

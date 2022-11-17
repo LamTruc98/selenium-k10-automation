@@ -13,14 +13,14 @@ import java.util.List;
 public class FormInteractionMultipleMatching {
     public static void main(String[] args) {
         WebDriver driver = DriverFactory.getChromeDriver();
-        try{
+        try {
             //Navigate to the target page
             driver.get("https://the-internet.herokuapp.com/login");
             //Define selector values
             By inputFielsdSel = By.tagName("input");
             WebElement usernameElem = driver.findElement(inputFielsdSel);
             List<WebElement> inputFieldsElem = driver.findElements(inputFielsdSel);
-            if (inputFieldsElem.isEmpty()){
+            if (inputFieldsElem.isEmpty()) {
                 throw new RuntimeException("[ERR] There is no input fields");
 
             }
@@ -31,7 +31,7 @@ public class FormInteractionMultipleMatching {
             inputFieldsElem.get(PASSWORD_INDEX).sendKeys("12345678");
             //Debug purpose ONLY
             Thread.sleep(3000);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         driver.quit();
