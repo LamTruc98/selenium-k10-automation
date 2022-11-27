@@ -18,11 +18,15 @@ public class FootTestFlow {
     }
 
     public void verifyFooterComponent() {
+        Assert.fail();
         BasePage basePage = new BasePage(driver);
-        InformationColumn informationColumn = basePage.footerComponent().informationColumn();
-        CustomerServiceColumn customerServiceColumn = basePage.footerComponent().customerServiceColumn();
-        MyAccountColumn myAccountColumn = basePage.footerComponent().myAccountColumn();
-        FollowUsColumn followUsColumn = basePage.footerComponent().followUsColumn();
+        FooterComponent footerComponent = basePage.footerComponent();
+
+        InformationColumn informationColumn = footerComponent.informationColumn();
+        CustomerServiceColumn customerServiceColumn = footerComponent.customerServiceColumn();
+        MyAccountColumn myAccountColumn = footerComponent.myAccountColumn();
+        FollowUsColumn followUsColumn = footerComponent.followUsColumn();
+
         verifyInformationColumn(informationColumn);
         verifyCustomerServiceColumn(customerServiceColumn);
         verifyMyAccountColumn(myAccountColumn);
