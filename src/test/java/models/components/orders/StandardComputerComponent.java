@@ -18,9 +18,7 @@ public class StandardComputerComponent extends ComputerEssentialComponent {
 
     @Override
     public String selectProcessorType(String type) {
-
         final int PROCESSOR_DROPDOWN_INDEX = 0;
-
         WebElement processorDropdownElem =
                 component.findElements(productAttributeSel).get(PROCESSOR_DROPDOWN_INDEX);
         return selectOption(processorDropdownElem, type);

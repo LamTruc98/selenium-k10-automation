@@ -3,8 +3,8 @@ package models.pages;
 import models.components.orders.ComputerEssentialComponent;
 import org.openqa.selenium.WebDriver;
 
-public class ComputerItemDetailPage extends BasePage {
-    public ComputerItemDetailPage(WebDriver driver) {
+public class ComputerItemDetailsPage extends BasePage {
+    public ComputerItemDetailsPage(WebDriver driver) {
         super(driver);
     }
 

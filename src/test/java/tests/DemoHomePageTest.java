@@ -8,31 +8,32 @@ import org.testng.annotations.Test;
 import url.Urls;
 
 public class DemoHomePageTest implements Urls {
+
     @Test
-    public  void testFooter () {
+    public void testFooter() {
         WebDriver driver = DriverFactory.getChromeDriver();
         try {
-            //navigate to the target page
             driver.get(BASE_URL);
-            HomePage homePage= new HomePage(driver);
-            FooterComponent footerComponent = homePage.footerComponent();
-            InformationColumn informationColumn = footerComponent.informationColumn();
-            CustomerServiceColumn customerServiceColumn = footerComponent.customerServiceColumn();
-            MyAccountColumn myAccountColumn = footerComponent.myAccountColumn();
-            FollowUsColumn followUsColumn = footerComponent.followUsColumn();
+
+            HomePage homePage = new HomePage(driver);
+            FooterComponent footerComp = homePage.footerComponent();
+            InformationColumnComponent informationColumn = footerComp.informationColumnComp();
+            CustomerServiceColumnComponent customerServiceColumn = footerComp.customerServiceColumnComp();
+            AccountColumnComponent myAccountColumn = footerComp.accountColumnComponent();
+            FollowUsColumnComponent followUsColumn = footerComp.followUsColumnComp();
 
             System.out.println(informationColumn.headerElem().getText());
             System.out.println(customerServiceColumn.headerElem().getText());
             System.out.println(myAccountColumn.headerElem().getText());
             System.out.println(followUsColumn.headerElem().getText());
 
+            System.out.println(informationColumn.linksElem().isEmpty());
 
-            //Debug purpose Only
+            // Debug purpose ONLY
             Thread.sleep(2000);
 
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         driver.quit();
     }

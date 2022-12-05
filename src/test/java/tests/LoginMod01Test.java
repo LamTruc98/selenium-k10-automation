@@ -6,25 +6,25 @@ import org.openqa.selenium.WebDriver;
 import url.Urls;
 
 public class LoginMod01Test implements Urls {
+
     public static void main(String[] args) {
         WebDriver driver = DriverFactory.getChromeDriver();
         try {
-            //navigate to the target page
+            // Navigate to the target page
             driver.get(HEROKU_BASE_URL.concat(LOGIN_FORM_SLUG));
 
-            //input login creds
+            // Input login creds
             LoginPageMod01 loginPage = new LoginPageMod01(driver);
-            loginPage.usernameElem().sendKeys("Teo");
-            loginPage.passwordElem().sendKeys("12345678");
-            loginPage.loginBtnElem().click();
+            loginPage.username().sendKeys("Teo");
+            loginPage.password().sendKeys("12345678");
+            loginPage.loginBtn().click();
 
-            //Debug purpose Only
+            // Debug purpose ONLY
             Thread.sleep(2000);
-
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         driver.quit();
     }
+
 }

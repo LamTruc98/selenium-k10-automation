@@ -11,19 +11,19 @@ public class FooterComponent extends Component {
         super(driver, component);
     }
 
-    public InformationColumn informationColumn() {
-        return findComponent(InformationColumn.class, driver);
+    public InformationColumnComponent informationColumnComp() {
+        return findComponent(InformationColumnComponent.class, driver);
     }
 
-    public CustomerServiceColumn customerServiceColumn() {
-        return findComponent(CustomerServiceColumn.class, driver);
+    public CustomerServiceColumnComponent customerServiceColumnComp() {
+        return findComponent(CustomerServiceColumnComponent.class, driver);
     }
 
-    public MyAccountColumn myAccountColumn() {
-        return findComponent(MyAccountColumn.class, driver);
+    public AccountColumnComponent accountColumnComponent() {
+        return findComponent(AccountColumnComponent.class, driver);
     }
 
-    public FollowUsColumn followUsColumn() {
-        return findComponent(FollowUsColumn.class, driver);
+    public FollowUsColumnComponent followUsColumnComp() {
+        return findComponent(FollowUsColumnComponent.class, driver);
     }
 }

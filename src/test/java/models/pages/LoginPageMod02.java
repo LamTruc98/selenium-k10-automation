@@ -19,12 +19,12 @@ public class LoginPageMod02 {
 
     }
 
-    public void inputpassword(String password) {
+    public void inputPassword(String password) {
         driver.findElement(passwordSel).sendKeys(password);
 
     }
 
-    public void clickOnloginBtnElem() {
+    public void clickOnLoginBtn() {
         driver.findElement(loginBtnSel).click();
 
     }

@@ -12,10 +12,14 @@ public class WaitForElementEnabled implements ExpectedCondition<Boolean> {
         this.selector = selector;
     }
 
+
     @Override
     public Boolean apply(WebDriver driver) {
         return driver.findElement(selector).isEnabled();
-
-//
+    }
+    @Override
+    public String toString() {
+        return "element located by" +
+                this.selector.toString();
     }
 }

@@ -8,7 +8,7 @@ public class GenericTypeExploring {
         try {
             Constructor<T> constructor = LoginPageClass.getConstructor(parameters);
             T loginPageOpj = constructor.newInstance();
-            loginPageOpj.Login();
+            loginPageOpj.login();
 
 
         } catch (Exception e) {

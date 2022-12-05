@@ -14,17 +14,17 @@ public class LoginPageMod01 {
         this.driver = driver;
     }
 
-    public WebElement usernameElem() {
+    public WebElement username() {
         return driver.findElement(usernameSel);
 
     }
 
-    public WebElement passwordElem() {
+    public WebElement password() {
         return driver.findElement(passwordSel);
 
     }
 
-    public WebElement loginBtnElem() {
+    public WebElement loginBtn() {
         return driver.findElement(loginBtnSel);
 
     }

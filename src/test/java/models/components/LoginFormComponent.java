@@ -14,18 +14,15 @@ public class LoginFormComponent extends Component {
         super(driver, component);
     }
 
-    public WebElement usernameElem() {
-        return driver.findElement(usernameSel);
-
+    public void inputUsername(String usernameTxt){
+        driver.findElement(usernameSel).sendKeys(usernameTxt);
     }
 
-    public WebElement passwordElem() {
-        return driver.findElement(passwordSel);
-
+    public void inputPassword(String passwordTxt){
+        driver.findElement(passwordSel).sendKeys(passwordTxt);
     }
 
-    public WebElement loginBtnElem() {
-        return driver.findElement(loginBtnSel);
-
+    public void clickOLoginBtn(){
+        driver.findElement(loginBtnSel).click();
     }
 }

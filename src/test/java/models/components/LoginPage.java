@@ -1,7 +1,7 @@
 package models.components;
 
 public abstract class LoginPage {
-    public void Login() {
+    public void login() {
         System.out.println(username());
 
         System.out.println(password());

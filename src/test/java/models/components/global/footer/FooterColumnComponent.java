@@ -21,7 +21,7 @@ public class FooterColumnComponent extends Component {
 
     }
 
-    public List<WebElement> linkElem() {
+    public List<WebElement> linksElem() {
         return component.findElements(linkSel);
     }
 }

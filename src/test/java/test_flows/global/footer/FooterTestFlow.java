@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FootTestFlow {
+public class FooterTestFlow {
     private final WebDriver driver;
 
-    public FootTestFlow(WebDriver driver) {
+
+    public FooterTestFlow(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -22,10 +23,10 @@ public class FootTestFlow {
         BasePage basePage = new BasePage(driver);
         FooterComponent footerComponent = basePage.footerComponent();
 
-        InformationColumn informationColumn = footerComponent.informationColumn();
-        CustomerServiceColumn customerServiceColumn = footerComponent.customerServiceColumn();
-        MyAccountColumn myAccountColumn = footerComponent.myAccountColumn();
-        FollowUsColumn followUsColumn = footerComponent.followUsColumn();
+        InformationColumnComponent informationColumn = footerComponent.informationColumnComp();
+        CustomerServiceColumnComponent customerServiceColumn = footerComponent.customerServiceColumnComp();
+        AccountColumnComponent myAccountColumn = footerComponent.accountColumnComponent();
+        FollowUsColumnComponent followUsColumn = footerComponent.followUsColumnComp();
 
         verifyInformationColumn(informationColumn);
         verifyCustomerServiceColumn(customerServiceColumn);
@@ -106,9 +107,9 @@ public class FootTestFlow {
             FooterColumnComponent footerColumnComponent, List<String> expectedLinkText, List<String> expectedHrefs) {
         List<String> actualLinkText = new ArrayList<>();
         List<String> actualHrefs = new ArrayList<>();
-        if (footerColumnComponent.linkElem().isEmpty())
+        if (footerColumnComponent.linksElem().isEmpty())
             Assert.fail("The column has no item to test");
-        for (WebElement link : footerColumnComponent.linkElem()) {
+        for (WebElement link : footerColumnComponent.linksElem()) {
             actualLinkText.add(link.getText().trim());
             actualHrefs.add(link.getAttribute("href"));
 

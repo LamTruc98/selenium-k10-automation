@@ -9,22 +9,25 @@ import java.time.Duration;
 
 public class DriverFactory {
     public static WebDriver getChromeDriver() {
-        String currentProjectLocation = System.getProperty("user.dir");
-        String chromeDriverLocation;
-        if (OS.isFamilyMac()) {
-            chromeDriverLocation = "src/test/resources/drivers/chromedriver";
-
-        } else if (OS.isFamilyWindows()) {
-            chromeDriverLocation = "\\src\\test\\resources\\drivers\\chromedriver";
-        } else {
-            throw new RuntimeException("[ERR] Couldn't delete the OS");
-        }
-        String chromeAbsoluteLocation = currentProjectLocation.concat(chromeDriverLocation);
-        System.setProperty("webdriver.chrome.driver", chromeAbsoluteLocation);
-
+//        String currentProjectLocation = System.getProperty("user.dir");
+//        String chromeDriverLocation;
+//        if (OS.isFamilyMac()) {
+//            chromeDriverLocation = "src/test/resources/drivers/chromedriver";
+//
+//        } else if (OS.isFamilyWindows()) {
+//            chromeDriverLocation = "\\src\\test\\resources\\drivers\\chromedriver";
+//        } else {
+//            throw new RuntimeException("[ERR] Couldn't delete the OS");
+//        }
+//        String chromeAbsoluteLocation = currentProjectLocation.concat(chromeDriverLocation);
+//        System.setProperty("webdriver.chrome.driver", chromeAbsoluteLocation);
+//
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--ignored");
+
         WebDriver driver = new ChromeDriver(chromeOptions);
+        
+        //Interval time| 500 mili seconds = 0.5 sec
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5L));
 
         return driver;

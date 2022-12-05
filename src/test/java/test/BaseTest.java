@@ -1,4 +1,4 @@
-package tests;
+package test;
 
 import driver.DriverFactory;
 import io.qameta.allure.Allure;
@@ -23,27 +23,24 @@ public class BaseTest {
     protected static WebDriver driver;
 
     @BeforeTest
-    public void initBrowserSession() {
+    public void initBrowserSession(){
         driver = DriverFactory.getChromeDriver();
-
-
     }
 
     @AfterTest(alwaysRun = true)
-    public void closeBrowerSession() {
-        if (driver != null) driver.quit();
+    public void closeBrowserSession(){
+        if(driver != null) driver.quit();
     }
 
     @AfterMethod
-    public void captureScreenshot(ITestResult result) {
-        if (result.getStatus() == ITestResult.FAILURE) {
-            //testMethodName -yyyy-m-dd-hr-mm-sec.png
+    public void captureScreenshot(ITestResult result){
+        if(result.getStatus() == ITestResult.FAILURE){
+            // testMethodName-yyyy-m-dd-hr-mm-sec.png
 
-            //1. Get method Name
+            // 1. Get method name
             String methodName = result.getName();
 
-
-            //2. Get Taken time
+            // 2. Get Taken time
             Calendar calendar = new GregorianCalendar();
             int y = calendar.get(Calendar.YEAR);
             int m = calendar.get(Calendar.MONTH) + 1;
@@ -51,28 +48,26 @@ public class BaseTest {
             int hr = calendar.get(Calendar.HOUR_OF_DAY);
             int min = calendar.get(Calendar.MINUTE);
             int sec = calendar.get(Calendar.SECOND);
-            String fileName = methodName + "-" + y + "-" + m + "-" + d + "-" + hr + "-" + min + "-" + sec  + ".png";
+            String filename = methodName + "-" + y + "-" + m + "-" + d + "-" + hr + "-" + min + "-" + sec + ".png";
 
+            // 3. Take Screenshot
+            File screenshotBase64Data = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
-            //3. Take Screenshot
-
-            File screeshotBase64Data = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             try {
-                //4. Save and attach to allure reporter
-                String fileLocation = System.getProperty("user.dir") + "/screenshorts" + fileName;
-                FileUtils.copyFile(screeshotBase64Data, new File(fileLocation));
-                // 5. Attach  to report
 
+                // 4. Save
+                String fileLocation = System.getProperty("user.dir") + "/screenshots/" + filename;
+                FileUtils.copyFile(screenshotBase64Data, new File(fileLocation));
+
+                // 5. Attach to report
                 Path content = Paths.get(fileLocation);
-
                 try (InputStream inputStream = Files.newInputStream(content)) {
                     Allure.addAttachment(methodName, inputStream);
                 }
-            } catch (Exception e) {
+
+            } catch (Exception e){
                 e.printStackTrace();
             }
-
         }
-
     }
 }
