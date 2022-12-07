@@ -21,7 +21,7 @@ public class FooterTestFlow {
     public void verifyFooterComponent() {
         Assert.fail();
         BasePage basePage = new BasePage(driver);
-        FooterComponent footerComponent = basePage.footerComponent();
+        FooterComponent footerComponent = basePage.footerComp();
 
         InformationColumnComponent informationColumn = footerComponent.informationColumnComp();
         CustomerServiceColumnComponent customerServiceColumn = footerComponent.customerServiceColumnComp();

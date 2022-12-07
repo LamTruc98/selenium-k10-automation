@@ -8,7 +8,7 @@ public class ComputerItemDetailsPage extends BasePage {
         super(driver);
     }
 
-    public <T extends ComputerEssentialComponent> T computerComp(Class<T> computerEssentialCompClass) {
+    public<T extends ComputerEssentialComponent> T computerComp(Class<T> computerEssentialCompClass){
         return findComponent(computerEssentialCompClass, driver);
     }
 }

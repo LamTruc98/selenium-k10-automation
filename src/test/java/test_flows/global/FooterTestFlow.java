@@ -29,7 +29,7 @@ public class FooterTestFlow {
 
     public void verifyFooterComponent(){
         BasePage basePage = new BasePage(driver);
-        FooterComponent footerComp = basePage.footerComponent();
+        FooterComponent footerComp = basePage.footerComp();
         verifyInformationColumn(footerComp.informationColumnComp());
         verifyCustomerService(footerComp.customerServiceColumnComp());
 //        verifyAccountColumn(footerComp.accountColumnComp());
