@@ -3,12 +3,20 @@ package test_flows.computer;
 import models.components.ShoppingCartPage;
 import models.components.cart.CartItemRowComponent;
 import models.components.cart.TotalComponent;
+import models.components.checkout.BillingAddressComponent;
+import models.components.checkout.ShippingMethodComponent;
 import models.components.orders.ComputerEssentialComponent;
+import models.pages.CheckOutOptionsPage;
+import models.pages.CheckOutPage;
 import models.pages.ComputerItemDetailsPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import test_data.DataObjectBuilder;
 import test_data.computer.ComputerData;
+import test_data.user.UserDataObject;
 
+import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -20,6 +28,7 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
     private ComputerData computerData;
     private int quantity = 1;
     private double totalItemPrice;
+    private UserDataObject defaultCheckOutUser;
 
     public OrderComputerFlow(WebDriver driver, Class<T> computerEssentialComponent, ComputerData computerData) {
         this.driver = driver;
@@ -96,7 +105,7 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
     public void verifyShoppingCartPage() {
         ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
         List<CartItemRowComponent> cartItemRowCompList = shoppingCartPage.cartItemRowCompList();
-        if(cartItemRowCompList.isEmpty()){
+        if (cartItemRowCompList.isEmpty()) {
             Assert.fail("[ERR] There is no item displayed in the shopping cart");
         }
         double allSubTotal = 0;
@@ -115,9 +124,9 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
         double checkoutTotal = 0;
         for (String priceType : priceCategories.keySet()) {
             double priceValue = priceCategories.get(priceType);
-            if(priceType.startsWith("Sub-Total")){
+            if (priceType.startsWith("Sub-Total")) {
                 checkoutSubTotal = priceValue;
-            } else if(priceType.startsWith("Total")){
+            } else if (priceType.startsWith("Total")) {
                 checkoutTotal = priceValue;
             } else {
                 checkoutOtherFeesTotal = checkoutOtherFeesTotal + priceValue;
@@ -126,8 +135,50 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
 
         Assert.assertEquals(allSubTotal, checkoutSubTotal, "[ERR] Checking out Subtotal value is incorrect");
         Assert.assertEquals((checkoutSubTotal + checkoutOtherFeesTotal), checkoutTotal, "[ERR] Checking out Total value is incorrect");
+
+
+
     }
 
+    public void aggreTOSandCheckout() {
+        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
+        shoppingCartPage.totalComp().agreeTOS();
+        shoppingCartPage.totalComp().clickOnCheckOutBtn();
+        new CheckOutOptionsPage(driver).checkOutAsGuest();
+    }
+
+    public void inputBillingAddress() {
+        String defaultCheckoutUserDataFileLoc = "/src/test/java/test_data/user/DefaultCheckoutUser.json";
+        defaultCheckOutUser = DataObjectBuilder.buildDataObjectFrom(defaultCheckoutUserDataFileLoc, UserDataObject.class);
+        CheckOutPage checkOutPage = new CheckOutPage(driver);
+        BillingAddressComponent billingAddressComp = checkOutPage.billingAddressComp();
+        billingAddressComp.selectInputNewAddress();
+        billingAddressComp.inputFirstname(defaultCheckOutUser.getFirstName());
+        billingAddressComp.inputLastName(defaultCheckOutUser.getLastName());
+        billingAddressComp.inputEmail(defaultCheckOutUser.getEmail());
+        billingAddressComp.selectCountry(defaultCheckOutUser.getCountry());
+        billingAddressComp.selectState(defaultCheckOutUser.getState());
+        billingAddressComp.inputCity(defaultCheckOutUser.getCity());
+        billingAddressComp.inputAdd1(defaultCheckOutUser.getAdd1());
+        billingAddressComp.inputZIPCode(defaultCheckOutUser.getZipCode());
+        billingAddressComp.inputPhoneNum(defaultCheckOutUser.getPhoneNum());
+        billingAddressComp.clickOnContinueBtn();
+
+    }
+    public void inputShippingAddress() {
+        CheckOutPage checkOutPage = new CheckOutPage(driver);
+        checkOutPage.shippingAddressComp().clickOnContinueBtn();
+    }
+
+    public void selectPaymentMethod() {
+        List<String> shippingMethods = Arrays.asList("Ground", "Next Day Air", "2nd Day Air");
+        int randomElemIndex = new SecureRandom().nextInt(shippingMethods.size());
+        String randomMethod = shippingMethods.get(randomElemIndex);
+        CheckOutPage checkOutPage = new CheckOutPage(driver);
+        ShippingMethodComponent shippingMethodComp = checkOutPage.shippingMethodComp();
+        shippingMethodComp.selectShippingMethod(randomMethod);
+        shippingMethodComp.clickOnContinueBtn();
+    }
 
 
 }
