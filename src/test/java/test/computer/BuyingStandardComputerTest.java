@@ -4,7 +4,9 @@ import models.components.orders.StandardComputerComponent;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import test.BaseTest;
+import test_data.CreditCardType;
 import test_data.DataObjectBuilder;
+import test_data.PaymentMethodType;
 import test_data.computer.ComputerData;
 import test_flows.computer.OrderComputerFlow;
 import url.Urls;
@@ -21,11 +23,13 @@ public class BuyingStandardComputerTest extends BaseTest implements Urls {
 
         orderComputerFlow.buildCompSpecAndAddToCart();
         orderComputerFlow.verifyShoppingCartPage();
-        orderComputerFlow.aggreTOSandCheckout();
+        orderComputerFlow.agreeTOSAndCheckOut();
         orderComputerFlow.inputBillingAddress();
         orderComputerFlow.inputShippingAddress();
-        orderComputerFlow.selectPaymentMethod();
-
+        orderComputerFlow.selectShippingMethod();
+        orderComputerFlow.selectPaymentMethod(PaymentMethodType.CREDIT_CARD);
+        orderComputerFlow.inputPaymentInfo(CreditCardType.VISA);
+        orderComputerFlow.confirmOrder();
     }
 
     @DataProvider

@@ -4,13 +4,14 @@ import models.components.orders.CheapComputerComponent;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import test.BaseTest;
+import test_data.CreditCardType;
+import test_data.PaymentMethodType;
 import test_data.computer.ComputerData;
 import test_data.DataObjectBuilder;
 import test_flows.computer.OrderComputerFlow;
 import url.Urls;
 
 import java.security.SecureRandom;
-import java.util.Iterator;
 
 public class BuyingCheapComputerTest extends BaseTest implements Urls {
 
@@ -22,10 +23,13 @@ public class BuyingCheapComputerTest extends BaseTest implements Urls {
                 new OrderComputerFlow<>(driver, CheapComputerComponent.class, computerData, randomQuantity);
         orderComputerFlow.buildCompSpecAndAddToCart();
         orderComputerFlow.verifyShoppingCartPage();
-        orderComputerFlow.aggreTOSandCheckout();
+        orderComputerFlow.agreeTOSAndCheckOut();
         orderComputerFlow.inputBillingAddress();
         orderComputerFlow.inputShippingAddress();
-        orderComputerFlow.selectPaymentMethod();
+        orderComputerFlow.selectShippingMethod();
+        orderComputerFlow.selectPaymentMethod(PaymentMethodType.CREDIT_CARD);
+        orderComputerFlow.inputPaymentInfo(CreditCardType.DISCOVER);
+        orderComputerFlow.confirmOrder();
     }
 
     @DataProvider
