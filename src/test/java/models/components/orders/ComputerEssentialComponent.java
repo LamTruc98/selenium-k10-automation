@@ -1,5 +1,6 @@
 package models.components.orders;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,36 +14,42 @@ public abstract class ComputerEssentialComponent extends BaseItemDetailsComponen
         super(driver, component);
     }
 
-    public void unselectAllDefaultOptions(){
+    public void unselectAllDefaultOptions() {
         List<WebElement> allOptionElem = findElements(allOptionSel);
         allOptionElem.forEach(option -> {
-            if(option.getAttribute("checked") != null) {
+            if (option.getAttribute("checked") != null) {
                 option.click();
             }
         });
     }
 
     public abstract String selectProcessorType(String type);
+
     public abstract String selectRAMType(String type);
 
-    public String selectHDD(String type){
+    @Step("Select HDD with value {type}")
+
+    public String selectHDD(String type) {
         return selectCompOption(type);
     }
 
-    public String selectOS(String type){
+    @Step("Select OS with value {type}")
+    public String selectOS(String type) {
         return selectCompOption(type);
     }
 
-    protected String selectCompOption(String type){
+    @Step("Select computer option with value {type}")
+    protected String selectCompOption(String type) {
         String selectorStr = "//label[contains(text(),\"" + type + "\")]";
         By optionSel = By.xpath(selectorStr);
         WebElement optionElem = null;
 
         try {
             optionElem = component.findElement(optionSel);
-        } catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
 
-        if(optionElem != null){
+        if (optionElem != null) {
             optionElem.click();
             return optionElem.getText();
         } else {

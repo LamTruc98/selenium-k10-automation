@@ -1,6 +1,7 @@
 package test.computer;
 
 import models.components.orders.StandardComputerComponent;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import test.BaseTest;
@@ -16,6 +17,8 @@ import java.security.SecureRandom;
 public class BuyingStandardComputerTest extends BaseTest implements Urls {
     @Test(dataProvider = "computerData")
     public void testStandardBuying(ComputerData computerData) {
+        WebDriver driver = getDriver();
+
         driver.get(BASE_URL.concat("/build-your-own-computer"));
         int randomQuantity = new SecureRandom().nextInt(100) + 2;
         OrderComputerFlow<StandardComputerComponent> orderComputerFlow =

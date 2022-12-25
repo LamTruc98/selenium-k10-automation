@@ -1,6 +1,7 @@
 package test_flows.computer;
 
-import models.components.ShoppingCartPage;
+import io.qameta.allure.Step;
+import models.pages.ShoppingCartPage;
 import models.components.cart.CartItemRowComponent;
 import models.components.cart.TotalComponent;
 import models.components.checkout.BillingAddressComponent;
@@ -12,7 +13,9 @@ import models.pages.CheckOutOptionsPage;
 import models.pages.CheckOutPage;
 import models.pages.CheckoutCompletedPage;
 import models.pages.ComputerItemDetailsPage;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import test_data.CreditCardType;
 import test_data.DataObjectBuilder;
@@ -34,11 +37,15 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
     private UserDataObject defaultCheckoutUser;
     private PaymentMethodType paymentMethod;
     private CreditCardType creditCardType;
+    private String browserName;
+
 
     public OrderComputerFlow(WebDriver driver, Class<T> computerEssentialComponent, ComputerData computerData) {
         this.driver = driver;
         this.computerEssentialComponent = computerEssentialComponent;
         this.computerData = computerData;
+        Capabilities caps = ((RemoteWebDriver) driver).getCapabilities();
+        browserName = caps.getBrowserName();
     }
 
     public OrderComputerFlow(WebDriver driver, Class<T> computerEssentialComponent, ComputerData computerData, int quantity) {
@@ -46,7 +53,10 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
         this.computerEssentialComponent = computerEssentialComponent;
         this.computerData = computerData;
         this.quantity = quantity;
+        Capabilities caps = ((RemoteWebDriver) driver).getCapabilities();
+        browserName = caps.getBrowserName();
     }
+    @Step("Build computer spec and add to cart")
 
     public void buildCompSpecAndAddToCart() {
         ComputerItemDetailsPage computerItemDetailsPage = new ComputerItemDetailsPage(driver);
@@ -73,8 +83,7 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
         }
 
         double totalAddedPrice = processorAddedPrice + ramAddedPrice + hddAddedPrice + osAddedPrice;
-        System.out.println("totalAddedPrice: " + totalAddedPrice);
-        totalItemPrice = (computerEssentialComp.basePrice() + totalAddedPrice) * this.quantity;
+            totalItemPrice = (computerEssentialComp.basePrice() + totalAddedPrice) * this.quantity;
 
         // Add to cart
         computerEssentialComp.clickOnAddToCartBtn();
@@ -102,6 +111,7 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
         return price * factor;
 
     }
+    @Step("Verify shopping cart")
 
     public void verifyShoppingCartPage() {
         ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
@@ -140,15 +150,27 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
 
 
     }
+    @Step("Agree TOS and checkout")
 
     public void agreeTOSAndCheckOut() {
+        if (browserName.equals("safari")) {
+            try {
+                Thread.sleep(3000);
+            } catch (Exception ignored) {}
+        }
         ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
         shoppingCartPage.totalComp().agreeTOS();
         shoppingCartPage.totalComp().clickOnCheckOutBtn();
         new CheckOutOptionsPage(driver).checkOutAsGuest();
     }
+    @Step("Input Billing address")
 
     public void inputBillingAddress() {
+            if (browserName.equals("safari")) {
+                try {
+                    Thread.sleep(3000);
+                } catch (Exception ignored) {}
+            }
         String defaultCheckoutUserDataFileLoc = "/src/test/java/test_data/user/DefaultCheckoutUser.json";
         defaultCheckoutUser = DataObjectBuilder.buildDataObjectFrom(defaultCheckoutUserDataFileLoc, UserDataObject.class);
         CheckOutPage checkOutPage = new CheckOutPage(driver);
@@ -166,11 +188,25 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
         billingAddressComp.clickOnContinueBtn();
 
     }
+    @Step("Input shipping address")
+
     public void inputShippingAddress() {
+        if (browserName.equals("safari")) {
+            try {
+                Thread.sleep(3000);
+            } catch (Exception ignored) {}
+        }
         CheckOutPage checkOutPage = new CheckOutPage(driver);
         checkOutPage.shippingAddressComp().clickOnContinueBtn();
     }
+    @Step("Select shipping method")
+
     public void selectShippingMethod() {
+        if (browserName.equals("safari")) {
+            try {
+                Thread.sleep(3000);
+            } catch (Exception ignored) {}
+        }
         List<String> shippingMethods = Arrays.asList("Ground", "Next Day Air", "2nd Day Air");
         int randomElemIndex = new SecureRandom().nextInt(shippingMethods.size());
         String randomMethod = shippingMethods.get(randomElemIndex);
@@ -184,8 +220,14 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
     public void selectPaymentMethod(){
         this.paymentMethod = PaymentMethodType.COD;
     }
+    @Step("Select payment method")
 
     public void selectPaymentMethod(PaymentMethodType paymentMethod){
+        if (browserName.equals("safari")) {
+            try {
+                Thread.sleep(3000);
+            } catch (Exception ignored) {}
+        }
         if(paymentMethod == null) {
             throw new IllegalArgumentException("[ERR] Payment method can't be null!");
         }
@@ -208,9 +250,15 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
 
         paymentMethodComponent.clickOnContinueBtn();
     }
+    @Step("Input payment info")
 
     // https://www.paypalobjects.com/en_GB/vhelp/paypalmanager_help/credit_card_numbers.htm
     public void inputPaymentInfo(CreditCardType creditCardType){
+        if (browserName.equals("safari")) {
+            try {
+                Thread.sleep(3000);
+            } catch (Exception ignored) {}
+        }
         if(creditCardType == null){
             throw new IllegalArgumentException("[ERR] Credit card type can't be null!");
         }
@@ -233,8 +281,14 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
         paymentInformationComp.clickOnContinueBtn();
     }
 
+    @Step("Confirm and verify the order")
 
     public void confirmOrder(){
+        if (browserName.equals("safari")) {
+            try {
+                Thread.sleep(3000);
+            } catch (Exception ignored) {}
+        }
         // TODO: Add verification methods
         new CheckOutPage(driver).confirmOrderComp().clickOnContinueBtn();
         new CheckoutCompletedPage(driver).clickOnContinueBtn();
