@@ -26,8 +26,8 @@ public class Main {
         }
 
         // Get browser
-//        String browser = System.getProperty("browser");
-        String browser =System.getenv("browser");
+        String browser = System.getProperty("browser");
+//        String browser =System.getenv("browser");
         if(browser == null){
             throw new RuntimeException("Please provide browser via -Dbrowser");
         }
