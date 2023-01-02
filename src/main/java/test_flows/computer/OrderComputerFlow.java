@@ -171,7 +171,7 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
                     Thread.sleep(3000);
                 } catch (Exception ignored) {}
             }
-        String defaultCheckoutUserDataFileLoc = "/src/test/java/test_data/user/DefaultCheckoutUser.json";
+        String defaultCheckoutUserDataFileLoc = "/src/main/java/test_data/user/DefaultCheckoutUser.json";
         defaultCheckoutUser = DataObjectBuilder.buildDataObjectFrom(defaultCheckoutUserDataFileLoc, UserDataObject.class);
         CheckOutPage checkOutPage = new CheckOutPage(driver);
         BillingAddressComponent billingAddressComp = checkOutPage.billingAddressComp();
