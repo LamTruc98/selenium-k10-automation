@@ -29,12 +29,15 @@ public class MouseHover {
                 WebElement profileNameElem = figureElem.findElement(profileNameSel);
                 WebElement profileLinkElem = figureElem.findElement(profileLinkSel);
 
+                // BEFORE mouse hover
                 System.out.println((profileNameElem.getText() + ":" + profileLinkElem.isDisplayed()));
 
+                // Mouse hover
                 actions.moveToElement(figureElem).perform();
 
                 System.out.println("======AFTER mouse hover=====");
 
+                // AFTER mouse hover
                 System.out.println((profileNameElem.getText() + ":" + profileLinkElem.isDisplayed()));
 
             }
